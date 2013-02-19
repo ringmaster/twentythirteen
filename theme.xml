@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pluggable type="theme">
+	<name>TwentyThirteen</name>
+	<license url="">GPL v3</license>
+
+	<author url="http://owenw.com/">Owen Winkler</author>
+
+	<version>1.0</version>
+	<url>http://redalt.com/</url>
+	<description><![CDATA[A knockoff of WordPress' unreleased new theme.]]></description>
+
+	<template_engine>rawphpengine</template_engine>
+
+	<copyright>2013</copyright>
+
+	<help>
+		<value><![CDATA[
+		<p>There is no helping you now.
+		]]></value>
+	</help>
+
+</pluggable>
