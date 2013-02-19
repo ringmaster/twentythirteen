@@ -12,10 +12,10 @@
 
 ?><!DOCTYPE html>
 <!--[if IE 7]>
-<html class="ie ie7 <?php echo $html_class; ?>">
+<html class="ie ie7 <?php /* echo $html_class; */ ?>">
 <![endif]-->
 <!--[if IE 8]>
-<html class="ie ie8 <?php echo $html_class; ?>">
+<html class="ie ie8 <?php /* echo $html_class; */ ?>">
 <![endif]-->
 <!--[if !(IE 7) | !(IE 8)  ]><!-->
 <html>
