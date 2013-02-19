@@ -19,4 +19,13 @@
 		]]></value>
 	</help>
 
+	<areas>
+		<area name="sidebar-1" title="Sidebar">
+			<description><![CDATA[Appears on posts and pages.]]></description>
+		</area>
+		<area name="sidebar-2" title="Footer">
+			<description><![CDATA[Appears in the footer section of the site.]]></description>
+		</area>
+	</areas>
+
 </pluggable>

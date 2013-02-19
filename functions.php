@@ -216,36 +216,6 @@ function twentythirteen_wp_title( $title, $sep ) {
 }
 add_filter( 'wp_title', 'twentythirteen_wp_title', 10, 2 );
 
-/**
- * Registers two widget areas.
- *
- * @since Twenty Thirteen 1.0
- *
- * @return void
- */
-function twentythirteen_widgets_init() {
-	register_sidebar( array(
-		'name'          => __( 'Sidebar', 'twentythirteen' ),
-		'id'            => 'sidebar-1',
-		'description'   => __( 'Appears on posts and pages', 'twentythirteen' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	) );
-
-	register_sidebar( array(
-		'name'          => __( 'Footer Widget Area', 'twentythirteen' ),
-		'id'            => 'sidebar-2',
-		'description'   => __( 'Appears in the footer section of the site', 'twentythirteen' ),
-		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</aside>',
-		'before_title'  => '<h3 class="widget-title">',
-		'after_title'   => '</h3>',
-	) );
-}
-add_action( 'widgets_init', 'twentythirteen_widgets_init' );
-
 if ( ! function_exists( 'twentythirteen_paging_nav' ) ) :
 /**
  * Displays navigation to next/previous set of posts when applicable.
