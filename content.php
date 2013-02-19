@@ -20,7 +20,7 @@
 		<h1 class="entry-title"><?php echo $content->title; ?></h1>
 		<?php else : ?>
 		<h1 class="entry-title">
-			<a href="<?php $content->permalink; ?>" title="<?php echo _e( 'Permalink to %s', 'twentythirteen' ), array( $content->title ); ?>" rel="bookmark"><?php echo $content->title; ?></a>
+			<a href="<?php echo $content->permalink; ?>" title="<?php _e( 'Permalink to %s', array( $content->title ), 'twentythirteen' ); ?>" rel="bookmark"><?php echo $content->title; ?></a>
 		</h1>
 		<?php endif; // is_single() ?>
 
