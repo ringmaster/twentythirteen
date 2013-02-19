@@ -13,9 +13,9 @@
 </header><!-- .page-header -->
 
 <div class="page-content">
-	<?php if ( is_home() && current_user_can( 'publish_posts' ) ) : ?>
+	<?php if ( $request->display_home && $user->can( 'publish_posts' ) ) : ?>
 
-	<p><?php printf( __( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', 'twentythirteen' ), admin_url( 'post-new.php' ) ); ?></p>
+	<p><?php _e( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', array( Url::get( 'admin', array( 'page' => 'publish' ) ) ) ); ?></p>
 
 	<?php elseif ( is_search() ) : ?>
 
