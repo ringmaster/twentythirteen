@@ -17,7 +17,7 @@
 
 	<p><?php _e( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', array( Url::get( 'admin', array( 'page' => 'publish' ) ) ), 'twentythirteen' ); ?></p>
 
-	<?php elseif ( is_search() ) : ?>
+	<?php elseif ( $request->display_search ) : ?>
 
 	<p><?php _e( 'Sorry, but nothing matched your search terms. Please try again with different keywords.', 'twentythirteen' ); ?></p>
 	<?php get_search_form(); ?>
