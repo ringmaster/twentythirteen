@@ -15,7 +15,7 @@
 <div class="page-content">
 	<?php if ( $request->display_home && $user->can( 'publish_posts' ) ) : ?>
 
-	<p><?php _e( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', array( Url::get( 'admin', array( 'page' => 'publish' ) ) ) ); ?></p>
+	<p><?php _e( 'Ready to publish your first post? <a href="%1$s">Get started here</a>.', array( Url::get( 'admin', array( 'page' => 'publish' ) ) ), 'twentythirteen' ); ?></p>
 
 	<?php elseif ( is_search() ) : ?>
 
