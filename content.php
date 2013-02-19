@@ -8,48 +8,49 @@
  */
 ?>
 
-<article id="post-<?php $post->id; ?>" <?php $post->info->class; ?>>
+<article id="post-<?php echo $content->id; ?>" <?php echo $content->class; ?>>
 	<header class="entry-header">
-		<?php if ( has_post_thumbnail() && ! is_single() && ! post_password_required() ) : ?>
+		<?php if ( false && has_post_thumbnail() && ! is_single() && ! post_password_required() ) : ?>
 		<div class="entry-thumbnail">
 			<?php the_post_thumbnail(); ?>
 		</div>
 		<?php endif; ?>
 
-		<?php if ( is_single() ) : ?>
-		<h1 class="entry-title"><?php the_title(); ?></h1>
+		<?php if ( $request->display_entry ) : ?>
+		<h1 class="entry-title"><?php echo $content->title; ?></h1>
 		<?php else : ?>
 		<h1 class="entry-title">
-			<a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'twentythirteen' ), the_title_attribute( 'echo=0' ) ) ); ?>" rel="bookmark"><?php the_title(); ?></a>
+			<a href="<?php $content->permalink; ?>" title="<?php echo _e( 'Permalink to %s', 'twentythirteen' ), array( $content->title ); ?>" rel="bookmark"><?php echo $content->title; ?></a>
 		</h1>
 		<?php endif; // is_single() ?>
 
 		<div class="entry-meta">
-			<?php twentythirteen_entry_meta(); ?>
-			<?php edit_post_link( __( 'Edit', 'twentythirteen' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php false && twentythirteen_entry_meta(); ?>
+			<?php if($content->get_access()->edit): ?>
+			<a href="<?php echo $content->editlink; ?>"><span class="edit-link"><?php _e('Edit', 'twentythirteen'); ?></span></a>
+			<?php endif; ?>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 
-	<?php if ( is_search() ) : // Only display Excerpts for Search ?>
+	<?php if ( $request->display_search ) : // Only display Excerpts for Search ?>
 	<div class="entry-summary">
-		<?php the_excerpt(); ?>
+		<?php echo $content->content_excert; ?>
 	</div><!-- .entry-summary -->
 	<?php else : ?>
 	<div class="entry-content">
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentythirteen' ) ); ?>
-		<?php wp_link_pages( array( 'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentythirteen' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
+		<?php echo $content->content_out; ?>
 	</div><!-- .entry-content -->
 	<?php endif; ?>
 
 	<footer class="entry-meta">
-		<?php if ( comments_open() ) : ?>
+		<?php if ( !$content->info->comments_disabled ) : ?>
 			<div class="comments-link">
-				<?php comments_popup_link( '<span class="leave-reply">' . __( 'Leave a comment', 'twentythirteen' ) . '</span>', __( 'One comment so far', 'twentythirteen' ), __( 'View all % comments', 'twentythirteen' ) ); ?>
+				<?php echo $theme->comments_link( $content, $zero = _t('<span class="leave-reply">Leave a comment</span>', 'twentythirteen'), $one = _t('One comment so far', 'twentythirteen'), $many = _t('View all %s comments', 'twentythirteen'), $fragment =  'comments' ); ?>
 			</div><!-- .comments-link -->
 		<?php endif; // comments_open() ?>
 
-		<?php if ( is_single() && get_the_author_meta( 'description' ) && is_multi_author() ) : ?>
-			<?php get_template_part( 'author-bio' ); ?>
+		<?php if ( $request->display_post && $content->user->info->profile != '' && Users::get(array('count'=>true)) > 1 ) : ?>
+			<?php $theme->display( 'author-bio' ); ?>
 		<?php endif; ?>
 	</footer><!-- .entry-meta -->
 </article><!-- #post -->

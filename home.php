@@ -22,10 +22,10 @@ $theme->display('header'); ?>
 
 			<?php /* The loop */ ?>
 			<?php foreach($posts as $post): ?>
-				<?php $theme->content($post); ?>
+				<?php echo $theme->content($post); ?>
 			<?php endforeach; ?>
 
-			<?php twentythirteen_paging_nav(); ?>
+			<?php false && twentythirteen_paging_nav(); ?>
 
 		<?php else : ?>
 			<?php $theme->display('content-none'); ?>
