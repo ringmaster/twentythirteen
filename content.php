@@ -25,7 +25,7 @@
 		<?php endif; // is_single() ?>
 
 		<div class="entry-meta">
-			<?php false && twentythirteen_entry_meta(); ?>
+			<?php echo $theme->post->meta; /* $content didn't work paired with filter_content_meta */ ?>
 			<?php if($content->get_access()->edit): ?>
 			<a href="<?php echo $content->editlink; ?>"><span class="edit-link"><?php _e('Edit', 'twentythirteen'); ?></span></a>
 			<?php endif; ?>
