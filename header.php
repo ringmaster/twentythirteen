@@ -29,7 +29,7 @@
 	<?php echo $theme->header(); ?>
 </head>
 
-<body <?php echo $theme->body_class(); ?>>
+<body class="<?php echo $theme->body_class(); ?>">
 	<div id="page" class="hfeed site">
 		<header id="masthead" class="site-header" role="banner">
 			<hgroup>

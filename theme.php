@@ -26,6 +26,19 @@ class TwentyThirteenTheme extends Theme
 		}
 		return $class;
 	}
+
+	function filter_body_class( $class, $theme ) {
+		/* if ( wp_style_is( 'twentythirteen-fonts', 'queue' ) ) */
+		$class[] = 'custom-font';
+
+		/* if ( ! is_multi_author() ) */
+		$class[] = 'single-author';
+
+		if ( $theme->area( 'sidebar-1' ) != '' /* && ! is_attachment() */ && $theme->request->display_404 != 1 ) {
+			$class[] = 'sidebar';
+		}
+		return $class;
+	}
 }
 
 ?>
