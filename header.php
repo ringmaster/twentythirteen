@@ -41,7 +41,7 @@
 				<nav id="site-navigation" class="navigation main-navigation" role="navigation">
 					<h3 class="menu-toggle"><?php _t( 'Menu', 'twentythirteen' ); ?></h3>
 					<a class="assistive-text skip-link" href="#content" title="<?php _t( 'Skip to content', 'twentythirteen' ); ?>"><?php _t( 'Skip to content', 'twentythirteen' ); ?></a>
-					<?php $theme->area('primary'); ?>
+					<?php echo $theme->area('navigation'); ?>
 					<?php /* get_search_form(); */ ?>
 				</nav><!-- #site-navigation -->
 			</div><!-- #navbar -->
