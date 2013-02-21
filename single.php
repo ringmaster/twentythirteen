@@ -15,7 +15,7 @@ $theme->display('header'); ?>
 			<?php echo $theme->content( $post ); ?>
 
 			<?php false && twentythirteen_post_nav(); ?>
-			<?php comments_template(); ?>
+			<?php $theme->display('comments'); ?>
 
 
 		</div><!-- #content -->

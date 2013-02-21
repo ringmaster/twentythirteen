@@ -43,6 +43,6 @@
 
 	<?php endif; // have_comments() ?>
 
-	<?php comment_form(); ?>
+	<?php $post->comment_form()->out(); ?>
 
 </div><!-- #comments -->
