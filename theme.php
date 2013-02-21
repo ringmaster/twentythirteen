@@ -54,30 +54,27 @@ class TwentyThirteenTheme extends Theme
 				$content->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat'))
 			);
 		}
-/*		// Translators: used between list items, there is a space after the comma.
-		$categories_list = get_the_category_list( __( ', ', 'twentythirteen' ) );
-		if ( $categories_list ) {
-			echo '<span class="categories-links">' . $categories_list . '</span>';
+
+		if ( count( $content->categories ) ) {
+			$meta .= '<span class="categories-links">'.
+				Format::tag_and_list( $content->categories, _t( ', ', 'twentythirteen'), _t( ', ', 'twentythirteen' ) /* no ', and ' */ ) .
+				'</span>';
 		}
 
-		$tag_list = get_the_tag_list( '', __( ', ', 'twentythirteen' ) );
-		if ( $tag_list ) {
-			echo '<span class="tags-links">' . $tag_list . '</span>';
-		}
-*/		if ( count( $content->tags ) ) {
+		if ( count( $content->tags ) ) {
 			$meta .= '<span class="tags-links">'.
 				Format::tag_and_list( $content->tags, _t( ', ', 'twentythirteen'), _t( ', ', 'twentythirteen' ) /* no ', and ' */ ) .
 				'</span>';
 		}
-/*		// Post author
-		if ( $post->content_type == 'post' ) {
-			printf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%3$s</a></span>',
-				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				esc_attr( sprintf( __( 'View all posts by %s', 'twentythirteen' ), get_the_author() ) ),
-				get_the_author()
+		// Post author
+		if ( $content_type == 'entry' ) {
+			$meta .= sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%3$s</a></span>',
+				$content->author->id, // esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+				_t( 'View all posts by %s', array( $content->author->username ), 'twentythirteen' ),
+				$content->author->username
 			);
 		}
-*/		return $meta;
+		return $meta;
 	}
 }
 
