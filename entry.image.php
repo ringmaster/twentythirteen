@@ -24,7 +24,7 @@
 	</div><!-- .entry-content -->
 
 	<footer class="entry-meta">
-		<?php $content->entrydate; ?>
+		<?php echo $content->entrydate; ?>
 
 		<?php if ( !$content->info->comments_disabled ) : ?>
 		<span class="comments-link">

@@ -8,28 +8,27 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php $content->id; ?>" class="<?php echo $content->class; ?>">
 	<header class="entry-header">
 		<h1 class="entry-title">
-			<a href="<?php echo esc_url( twentythirteen_get_first_url() ); ?>" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a>
+			<h1 class="entry-title"><?php echo $content->title; ?></h1>
 		</h1>
 
 		<div class="entry-meta">
-			<?php twentythirteen_entry_date(); ?>
-			<?php edit_post_link( __( 'Edit', 'twentythirteen' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php echo $content->entrydate; ?>
+			<?php echo $content->showeditlink; ?>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentythirteen' ) ); ?>
-		<?php wp_link_pages( array( 'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentythirteen' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
+		<?php echo $content->content; ?>
 	</div><!-- .entry-content -->
 
-	<?php if ( is_single() ) : ?>
+	<?php if ( $request->display_post ) : ?>
 	<footer class="entry-meta">
-		<?php twentythirteen_entry_meta(); ?>
-		<?php if ( get_the_author_meta( 'description' ) && is_multi_author() ) : ?>
-			<?php get_template_part( 'author-bio' ); ?>
+		<?php echo $content->meta; ?>
+		<?php if ( $content->author->info->bio != '' && Users::get(array('count'=>true)) > 1 ) : ?>
+			<?php $theme->display( 'author-bio' ); ?>
 		<?php endif; ?>
 	</footer>
 	<?php endif; // is_single() ?>
