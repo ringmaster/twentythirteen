@@ -17,7 +17,24 @@ class TwentyThirteenTheme extends Theme
 		}
 		else {
 			Stack::add('template_stylesheet', $theme->get_url('/css/style.css'), 'style');
+			Stack::add('template_stylesheet', 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300italic,400italic,700italic|Bitter:400,700&#038;subset=latin,latin-ext', 'bitter');
 		}
+	}
+
+	public function action_theme_ui( $theme )
+	{
+		$ui = new FormUI( __CLASS__ );
+		$options = array(
+			'a' => 'A!',
+			'b' => 'B!',
+			'c' => 'C!',
+		);
+		$ui->append( new FormControlSelect('background', 'option:theme_header_background', 'Header Background Image:', $options));
+
+		// Save
+		$ui->append( 'submit', 'save', _t( 'Save' ) );
+		$ui->set_option( 'success_message', _t( 'Options saved' ) );
+		$ui->out();
 	}
 
 	/**
@@ -60,8 +77,8 @@ class TwentyThirteenTheme extends Theme
 		return $type;
 	}
 
-	function action_form_publish_entry($form, $post, $context) {
-		$options = array(
+	function get_formats() {
+		return array(
 			'standard' => 'Standard Entry',
 			'aside' => 'Aside',
 			'audio' => 'Audio',
@@ -73,6 +90,11 @@ class TwentyThirteenTheme extends Theme
 			'status' => 'Status',
 			'video' => 'Video',
 		);
+	}
+
+
+	function action_form_publish_entry($form, $post, $context) {
+		$options = $this->get_formats();
 		$form->settings->append(new FormControlSelect('format', $post, 'Post Format', $options, 'tabcontrol_select'));
 	}
 
@@ -89,38 +111,38 @@ class TwentyThirteenTheme extends Theme
 		return $class;
 	}
 
-	function filter_post_meta( $something, $content ) {
+	function filter_post_meta( $something, $post ) {
 		$meta = '';
-		$content_type = Post::type_name( $content->content_type );
+		$post_type = Post::type_name( $post->content_type );
 
-		if ( $content_type !== 'aside' && $content_type !== 'link' && $content_type == 'entry' ) { // is that last one even necessary? WP checked it was 'post'
-			// I do not understand this following line.
-			// $format_prefix = ( has_post_format( 'chat' ) || has_post_format( 'status' ) ) ? _x( '%1$s on %2$s', '1: post format name. 2: date', 'twentythirteen' ): '%2$s';
+		if ( $post_type !== 'aside' && $post_type !== 'link' ) {
+			$formats = $this->get_formats();
+			$linktext = ( in_array($post->info->format, array('chat', 'status')) ) ? _t( '%1$s on %2$s', array($formats[$post->info->format], $post->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat')))) : $post->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat'));
 			$meta .= sprintf( '<span class="date"><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a></span>',
-				$content->permalink,
-				_t( 'Permalink to %s', array( $content->permalink ), 'twentythirteen' ),
-				$content->pubdate->format( 'c' ),
-				$content->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat'))
+				$post->permalink,
+				_t( 'Permalink to %s', array( $post->permalink ), 'twentythirteen' ),
+				$post->pubdate->format( 'c' ),
+				$linktext
 			);
 		}
 
-		if ( count( $content->categories ) ) {
+		if ( count( $post->categories ) ) {
 			$meta .= '<span class="categories-links">'.
-				Format::tag_and_list( $content->categories, _t( ', ', 'twentythirteen'), _t( ', ', 'twentythirteen' ) /* no ', and ' */ ) .
+				Format::tag_and_list( $post->categories, _t( ', ', 'twentythirteen'), _t( ', ', 'twentythirteen' ) /* no ', and ' */ ) .
 				'</span>';
 		}
 
-		if ( count( $content->tags ) ) {
+		if ( count( $post->tags ) ) {
 			$meta .= '<span class="tags-links">'.
-				Format::tag_and_list( $content->tags, _t( ', ', 'twentythirteen'), _t( ', ', 'twentythirteen' ) /* no ', and ' */ ) .
+				Format::tag_and_list( $post->tags, _t( ', ', 'twentythirteen'), _t( ', ', 'twentythirteen' ) /* no ', and ' */ ) .
 				'</span>';
 		}
 		// Post author
-		if ( $content_type == 'entry' ) {
+		if ( $post_type == 'entry' ) {
 			$meta .= sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%3$s</a></span>',
-				$content->author->id, // esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
-				_t( 'View all posts by %s', array( $content->author->username ), 'twentythirteen' ),
-				$content->author->username
+				$post->author->id, // esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+				_t( 'View all posts by %s', array( $post->author->username ), 'twentythirteen' ),
+				$post->author->username
 			);
 		}
 		return $meta;
@@ -160,6 +182,21 @@ AVATAR_HTML;
 EDITLINK;
 		}
 		return '';
+	}
+
+	function filter_post_entrydate($nothing, $post)
+	{
+		$formats = $this->get_formats();
+		$dateout = $post->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat'));
+		$linktext = ( in_array($post->info->format, array('chat', 'status')) ) ? _t( '%1$s on %2$s', array($formats[$post->info->format], $dateout)) : $dateout;
+		$meta = sprintf( '<span class="date"><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a></span>',
+			$post->permalink,
+			_t( 'Permalink to %s', array( $post->permalink ), 'twentythirteen' ),
+			$post->pubdate->format( 'c' ),
+			$linktext
+		);
+
+		return $meta;
 	}
 
 
