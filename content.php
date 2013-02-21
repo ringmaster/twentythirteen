@@ -34,7 +34,7 @@
 
 	<?php if ( $request->display_search ) : // Only display Excerpts for Search ?>
 	<div class="entry-summary">
-		<?php echo $content->content_excert; ?>
+		<?php echo $content->content_excerpt; ?>
 	</div><!-- .entry-summary -->
 	<?php else : ?>
 	<div class="entry-content">
