@@ -36,7 +36,40 @@ class TwentyThirteenTheme extends Theme
 			$class[] = $post->info->class;
 		}
 		$class = array_merge($class, $post->content_type());
+		if($post->content_type == Post::type('entry')) {
+			if(isset($post->info->format)) {
+				array_unshift($class, 'format-' . $post->info->format);
+			}
+			else {
+				array_unshift($class, 'format-standard');
+			}
+		}
+		$class[] = 'hentry';
 		return implode(' ', $class);
+	}
+
+	function filter_content_type($type, $post) {
+		if($post->content_type == Post::type('entry')) {
+			if(isset($post->info->format)) {
+				array_unshift($type, 'entry.' . $post->info->format);
+			}
+			else {
+				array_unshift($type, 'entry.standard');
+			}
+		}
+		return $type;
+	}
+
+	function action_form_publish_entry($form, $post, $context) {
+		$options = array(
+			'standard' => 'Standard Entry',
+			'audio' => 'Audio',
+			'chat' => 'Chat',
+			'quote' => 'Quote',
+			'status' => 'Status',
+			'video' => 'Video',
+		);
+		$form->settings->append(new FormControlSelect('format', $post, 'Post Format', $options, 'tabcontrol_select'));
 	}
 
 	function filter_body_class( $class, $theme ) {
@@ -109,6 +142,8 @@ class TwentyThirteenTheme extends Theme
 AVATAR_HTML;
 		return $avatar;
 	}
+
+
 }
 
 ?>
