@@ -215,6 +215,10 @@ SEARCH_BLOCK_CONTENT;
 
 	public function action_form_comment( $form ) {
 		$form->id = 'commentform';
+		$form->cf_content->class[] = "comment-form-field comment-textarea";
+		$form->cf_content->placeholder = _t( "Enter your comment here...", 'twentythirteen' );
+		$form->cf_content->move_before( $form->cf_commenter );
+		$form->cf_content->caption = '';
 	}
 }
 
