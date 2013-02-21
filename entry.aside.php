@@ -8,15 +8,14 @@
  */
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php echo $content->id; ?>" class="<?php echo $content->class; ?>">
 	<div class="entry-content">
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'twentythirteen' ) ); ?>
-		<?php wp_link_pages( array( 'before' => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentythirteen' ) . '</span>', 'after' => '</div>', 'link_before' => '<span>', 'link_after' => '</span>' ) ); ?>
+		<?php echo $content->content_excerpt; ?>
 	</div><!-- .entry-content -->
 
-	<?php if ( is_single() ) : ?>
+	<?php if ( $request->display_post ) : ?>
 	<footer class="entry-meta">
-		<?php twentythirteen_entry_meta(); ?>
+		<?php echo $content->meta; /* $content didn't work paired with filter_content_meta */ ?>
 		<?php edit_post_link( __( 'Edit', 'twentythirteen' ), '<span class="edit-link">', '</span>' ); ?>
 
 		<?php if ( get_the_author_meta( 'description' ) && is_multi_author() ) : ?>

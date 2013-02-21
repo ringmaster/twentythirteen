@@ -16,7 +16,7 @@
 		</div>
 		<?php endif; ?>
 
-		<?php if ( $request->display_entry ) : ?>
+		<?php if ( $request->display_post ) : ?>
 		<h1 class="entry-title"><?php echo $content->title; ?></h1>
 		<?php else : ?>
 		<h1 class="entry-title">
@@ -25,10 +25,8 @@
 		<?php endif; // is_single() ?>
 
 		<div class="entry-meta">
-			<?php echo $theme->post->meta; /* $content didn't work paired with filter_content_meta */ ?>
-			<?php if($content->get_access()->edit): ?>
-			<a href="<?php echo $content->editlink; ?>"><span class="edit-link"><?php _e('Edit', 'twentythirteen'); ?></span></a>
-			<?php endif; ?>
+			<?php echo $content->meta; ?>
+			<?php echo $content->showeditlink; ?>
 		</div><!-- .entry-meta -->
 	</header><!-- .entry-header -->
 
