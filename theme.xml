@@ -22,6 +22,9 @@
 	</help>
 
 	<areas>
+		<area name="navigation" title="Navigation">
+			<description><![CDATA[Appears in the header for navigation.]]></description>
+		</area>
 		<area name="sidebar_1" title="Sidebar">
 			<description><![CDATA[Appears on posts and pages.]]></description>
 		</area>
