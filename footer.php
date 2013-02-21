@@ -13,7 +13,7 @@
 
 		</div><!-- #main -->
 		<footer id="colophon" class="site-footer" role="contentinfo">
-			<?php echo $theme->area( 'sidebar-2' ); ?>
+			<?php echo $theme->area( 'sidebar_2' ); ?>
 
 			<div class="site-info">
 				<a href="http://habariproject.org/" title="<?php _e( 'Semantic Personal Publishing Platform', 'twentythirteen' ); ?>"><?php _e( 'Proudly powered by %s', array( 'Habari' ), 'twentythirteen' ); ?></a>

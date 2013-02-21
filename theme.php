@@ -79,7 +79,7 @@ class TwentyThirteenTheme extends Theme
 		/* if ( ! is_multi_author() ) */
 		$class[] = 'single-author';
 
-		if ( $theme->area( 'sidebar-1' ) != '' /* && ! is_attachment() */ && $theme->request->display_404 != 1 ) {
+		if ( $theme->area( 'sidebar_1' ) != '' /* && ! is_attachment() */ && $theme->request->display_404 != 1 ) {
 			$class[] = 'sidebar';
 		}
 		return $class;
