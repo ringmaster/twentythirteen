@@ -18,17 +18,23 @@ class TwentyThirteenTheme extends Theme
 		else {
 			Stack::add('template_stylesheet', $theme->get_url('/css/style.css'), 'style');
 			Stack::add('template_stylesheet', 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300italic,400italic,700italic|Bitter:400,700&#038;subset=latin,latin-ext', 'bitter');
+			$header_bg = Site::get_url('theme', '/assets/images/headers/' . Options::get('theme_header_background', 'circle.jpg'));
+			$header_styles = <<< HEADER_STYLES
+.site-header {
+background: #999 url({$header_bg});
+}
+HEADER_STYLES;
+
+			Stack::add('template_stylesheet', $header_styles, 'header');
 		}
 	}
 
 	public function action_theme_ui( $theme )
 	{
 		$ui = new FormUI( __CLASS__ );
-		$options = array(
-			'a' => 'A!',
-			'b' => 'B!',
-			'c' => 'C!',
-		);
+		$headers_dir = Site::get_dir('theme') . '/assets/images/headers/*';
+		$headers = Utils::glob($headers_dir);
+		$options = array_combine(array_map('basename', $headers), array_map('basename', $headers));
 		$ui->append( new FormControlSelect('background', 'option:theme_header_background', 'Header Background Image:', $options));
 
 		// Save
