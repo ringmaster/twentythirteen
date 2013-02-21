@@ -15,15 +15,18 @@
 
 	<?php if ( $request->display_post ) : ?>
 	<footer class="entry-meta">
-		<?php echo $content->meta; /* $content didn't work paired with filter_content_meta */ ?>
-		<?php edit_post_link( __( 'Edit', 'twentythirteen' ), '<span class="edit-link">', '</span>' ); ?>
+		<?php echo $content->meta; ?>
+		<?php echo $content->showeditlink; ?>
 
-		<?php if ( get_the_author_meta( 'description' ) && is_multi_author() ) : ?>
-			<?php get_template_part( 'author-bio' ); ?>
+		<?php if ( $content->author->info->bio != '' && Users::get(array('count'=>true)) > 1 ) : ?>
+			<?php $theme->display( 'author-bio' ); ?>
 		<?php endif; ?>
 	</footer><!-- .entry-meta -->
 
 	<?php else : ?>
-		<?php edit_post_link( __( 'Edit', 'twentythirteen' ), '<footer class="entry-meta"><span class="edit-link">', '</span></footer><!-- .entry-meta -->' ); ?>
+	<footer class="entry-meta">
+		<?php echo $content->meta; ?>
+		<?php echo $content->showeditlink; ?>
+	</footer><!-- .entry-meta -->
 	<?php endif; // is_single() ?>
 </article><!-- #post -->

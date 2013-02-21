@@ -60,8 +60,8 @@ class TwentyThirteenTheme extends Theme
 		return $type;
 	}
 
-	function action_form_publish_entry($form, $post, $context) {
-		$options = array(
+	function get_formats() {
+		return array(
 			'standard' => 'Standard Entry',
 			'aside' => 'Aside',
 			'audio' => 'Audio',
@@ -73,6 +73,11 @@ class TwentyThirteenTheme extends Theme
 			'status' => 'Status',
 			'video' => 'Video',
 		);
+	}
+
+
+	function action_form_publish_entry($form, $post, $context) {
+		$options = $this->get_formats();
 		$form->settings->append(new FormControlSelect('format', $post, 'Post Format', $options, 'tabcontrol_select'));
 	}
 
@@ -95,12 +100,13 @@ class TwentyThirteenTheme extends Theme
 
 		if ( $content_type !== 'aside' && $content_type !== 'link' && $content_type == 'entry' ) { // is that last one even necessary? WP checked it was 'post'
 			// I do not understand this following line.
-			// $format_prefix = ( has_post_format( 'chat' ) || has_post_format( 'status' ) ) ? _x( '%1$s on %2$s', '1: post format name. 2: date', 'twentythirteen' ): '%2$s';
+			$formats = $this->get_formats();
+			$linktext = ( in_array($content->info->format, array('chat', 'status')) ) ? _t( '%1$s on %2$s', array($formats[$content->info->format], $content->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat')))) : $content->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat'));
 			$meta .= sprintf( '<span class="date"><a href="%1$s" title="%2$s" rel="bookmark"><time class="entry-date" datetime="%3$s">%4$s</time></a></span>',
 				$content->permalink,
 				_t( 'Permalink to %s', array( $content->permalink ), 'twentythirteen' ),
 				$content->pubdate->format( 'c' ),
-				$content->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat'))
+				$linktext
 			);
 		}
 
