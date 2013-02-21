@@ -17,6 +17,7 @@ class TwentyThirteenTheme extends Theme
 		}
 		else {
 			Stack::add('template_stylesheet', $theme->get_url('/css/style.css'), 'style');
+			Stack::add('template_stylesheet', 'http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300italic,400italic,700italic|Bitter:400,700&#038;subset=latin,latin-ext', 'bitter');
 		}
 	}
 
