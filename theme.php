@@ -63,8 +63,12 @@ class TwentyThirteenTheme extends Theme
 	function action_form_publish_entry($form, $post, $context) {
 		$options = array(
 			'standard' => 'Standard Entry',
+			'aside' => 'Aside',
 			'audio' => 'Audio',
 			'chat' => 'Chat',
+			'gallery' => 'Gallery',
+			'image' => 'Image',
+			'link' => 'Link',
 			'quote' => 'Quote',
 			'status' => 'Status',
 			'video' => 'Video',
@@ -141,6 +145,21 @@ class TwentyThirteenTheme extends Theme
 <img src="{$url}" class="{$classes}" height="{$size}" width="{$size}">
 AVATAR_HTML;
 		return $avatar;
+	}
+
+	/**
+	 * @param $nothing
+	 * @param Post $post
+	 */
+	function filter_post_showeditlink($nothing, $post)
+	{
+		if($post->get_access()->edit) {
+			$edit = _t('Edit', 'twentythirteen');
+			return <<< EDITLINK
+<a href="{$post->editlink}"><span class="edit-link">{$edit}</span></a>
+EDITLINK;
+		}
+		return '';
 	}
 
 

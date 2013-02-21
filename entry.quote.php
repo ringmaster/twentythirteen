@@ -14,7 +14,7 @@
 	</div><!-- .entry-content -->
 
 	<footer class="entry-meta">
-		<?php echo $theme->post->meta; /* $content didn't work paired with filter_content_meta */ ?>
+		<?php echo $content->meta; ?>
 
 		<?php if ( !$content->info->comments_disabled ) : ?>
 		<span class="comments-link">
