@@ -109,7 +109,7 @@ HEADER_STYLES;
 		$class[] = 'custom-font';
 
 		/* if ( ! is_multi_author() ) */
-		$class[] = 'single-author';
+		//$class[] = 'single-author';
 
 		if ( $theme->area( 'sidebar_1' ) != '' /* && ! is_attachment() */ && $theme->request->display_404 != 1 ) {
 			$class[] = 'sidebar';
@@ -144,7 +144,7 @@ HEADER_STYLES;
 				'</span>';
 		}
 		// Post author
-		if ( $post_type == 'entry' ) {
+		if ( in_array($post->typename, array('entry') )) {
 			$meta .= sprintf( '<span class="author vcard"><a class="url fn n" href="%1$s" title="%2$s" rel="author">%3$s</a></span>',
 				$post->author->id, // esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
 				_t( 'View all posts by %s', array( $post->author->username ), 'twentythirteen' ),
@@ -161,7 +161,12 @@ HEADER_STYLES;
 
 	function get_avatar($user, $size = 96, $default = 'mystery')
 	{
-		$email_hash = md5(strtolower(trim($user->email)));
+		if($user instanceof User) {
+			$email_hash = md5(strtolower(trim($user->email)));
+		}
+		else {
+			$email_hash = md5(strtolower(trim($user)));
+		}
 		$host = sprintf( "http://%d.gravatar.com", ( hexdec( $email_hash[0] ) % 2 ) );
 		$default = "{$host}/avatar/ad516503a11cd5ca435acc9bb6523536?s={$size}";
 		$classes = explode(' ', "avatar avatar-{$size} photo");

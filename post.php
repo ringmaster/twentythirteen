@@ -52,3 +52,7 @@
 		<?php endif; ?>
 	</footer><!-- .entry-meta -->
 </article><!-- #post -->
+
+<?php if($request->display_post): ?>
+<?php $theme->display('comments'); ?>
+<?php endif; ?>
