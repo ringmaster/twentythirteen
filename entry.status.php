@@ -17,7 +17,7 @@
 		<?php if ( $request->display_post ) : ?>
 			<?php echo $content->meta; ?>
 		<?php else : ?>
-			<?php echo $content->pubdate->format( Options::get('dateformat') . ' ' . Options::get('timeformat')); ?>
+			<?php echo $content->entrydate; ?>
 		<?php endif; ?>
 		<?php echo $content->showeditlink; ?>
 
