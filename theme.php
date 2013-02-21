@@ -20,11 +20,23 @@ class TwentyThirteenTheme extends Theme
 		}
 	}
 
+	/**
+	 * @param string $class
+	 * @param Post $post
+	 * @return string
+	 */
 	function filter_post_class($class, $post) {
-		if(empty($class) && isset($post->info->class)) {
-			return ' class="' . $post->info->class . '" ';
+		if(empty($class)) {
+			$class = array();
 		}
-		return $class;
+		elseif(is_string($class)) {
+			$class = array($class);
+		}
+		if(isset($post->info->class)) {
+			$class[] = $post->info->class;
+		}
+		$class = array_merge($class, $post->content_type());
+		return implode(' ', $class);
 	}
 
 	function filter_body_class( $class, $theme ) {
@@ -80,6 +92,22 @@ class TwentyThirteenTheme extends Theme
 	function action_form_user($form, $user)
 	{
 		$form->user_info->append(new FormControlTextArea('bio', $user, _t('Bio', 'twentythirteen')));
+	}
+
+	function get_avatar($user, $size = 96, $default = 'mystery')
+	{
+		$email_hash = md5(strtolower(trim($user->email)));
+		$host = sprintf( "http://%d.gravatar.com", ( hexdec( $email_hash[0] ) % 2 ) );
+		$default = "{$host}/avatar/ad516503a11cd5ca435acc9bb6523536?s={$size}";
+		$classes = explode(' ', "avatar avatar-{$size} photo");
+		$classes[] = 'avatar-default';
+		$classes = implode(' ', $classes);
+		$url = "{$host}/avatar/{$email_hash}?s={$size}&amp;" . urlencode($default);
+
+		$avatar = <<< AVATAR_HTML
+<img src="{$url}" class="{$classes}" height="{$size}" width="{$size}">
+AVATAR_HTML;
+		return $avatar;
 	}
 }
 

@@ -8,7 +8,7 @@
  */
 ?>
 
-<article id="post-<?php echo $content->id; ?>" <?php echo $content->class; ?>>
+<article id="post-<?php echo $content->id; ?>" class="<?php echo $content->class; ?>">
 	<header class="entry-header">
 		<?php if ( false && has_post_thumbnail() && ! is_single() && ! post_password_required() ) : ?>
 		<div class="entry-thumbnail">
