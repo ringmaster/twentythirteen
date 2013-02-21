@@ -25,7 +25,7 @@ $theme->display('header'); ?>
 				<?php echo $theme->content($post); ?>
 			<?php endforeach; ?>
 
-			<?php false && twentythirteen_paging_nav(); ?>
+			<?php $theme->display('paging_nav'); ?>
 
 		<?php else : ?>
 			<?php $theme->display('content-none'); ?>
