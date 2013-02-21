@@ -49,7 +49,7 @@
 			</div><!-- .comments-link -->
 		<?php endif; // comments_open() ?>
 
-		<?php if ( $request->display_post && $content->user->info->profile != '' && Users::get(array('count'=>true)) > 1 ) : ?>
+		<?php if ( $request->display_post && $content->author->info->bio != '' && Users::get(array('count'=>true)) > 1 ) : ?>
 			<?php $theme->display( 'author-bio' ); ?>
 		<?php endif; ?>
 	</footer><!-- .entry-meta -->

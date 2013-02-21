@@ -76,6 +76,11 @@ class TwentyThirteenTheme extends Theme
 		}
 		return $meta;
 	}
+
+	function action_form_user($form, $user)
+	{
+		$form->user_info->append(new FormControlTextArea('bio', $user, _t('Bio', 'twentythirteen')));
+	}
 }
 
 ?>
