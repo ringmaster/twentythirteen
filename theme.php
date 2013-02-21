@@ -199,6 +199,19 @@ EDITLINK;
 		return $meta;
 	}
 
+	public function filter_block_list( $block_list )
+	{
+		$block_list[ 'search' ] = _t( 'Search', 'twentythirteen' );
+		return $block_list;
+	}
+
+	public function action_block_content_search( $block, $theme )
+	{
+		$block->content = <<< SEARCH_BLOCK_CONTENT
+<form method="get" id="searchform" class="searchform" action="/search" role="search"> <label for="s" class="assistive-text">Search</label> <input type="search" class="field" name="criteria" value="" id="s" placeholder="Search …"> <input type="submit" class="submit" name="submit" id="searchsubmit" value="Search"> </form>
+SEARCH_BLOCK_CONTENT;
+
+	}
 
 }
 
