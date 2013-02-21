@@ -213,6 +213,9 @@ SEARCH_BLOCK_CONTENT;
 
 	}
 
+	public function action_form_comment( $form ) {
+		$form->id = 'commentform';
+	}
 }
 
 ?>

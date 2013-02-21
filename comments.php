@@ -43,6 +43,8 @@
 
 	<?php endif; // have_comments() ?>
 
-	<?php $post->comment_form()->out(); ?>
-
+	<div id="respond" class="js">
+		<h3 id="reply-title">Leave a Reply</h3>
+		<?php $post->comment_form()->out(); ?>
+	</div><!-- #respond -->
 </div><!-- #comments -->
